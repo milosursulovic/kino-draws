@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="draw_item_background">#016db6</color>
+    <color name="background">#09485e</color>
+    <color name="draw_item_draw_time">#ffffff4d</color>
+    <color name="draw_item_left_time">#ffffff99</color>
 </resources>
