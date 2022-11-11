@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".presentation.fragments.DrawsFragment">
+    tools:context=".presentation.fragments.DrawsFragment"
+    android:padding="4dp">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -21,10 +22,10 @@
         android:id="@+id/draw_time_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/draw_item_background"
+        android:background="@color/card"
         android:padding="8dp"
-        android:text="Vreme izlacenja:"
-        android:textColor="@color/draw_item_draw_time"
+        android:text="@string/draw_time"
+        android:textColor="@color/text"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/left_time_label"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,10 +35,10 @@
         android:id="@+id/left_time_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/draw_item_background"
+        android:background="@color/card"
         android:padding="8dp"
-        android:text="Preostalo za uplatu:"
-        android:textColor="@color/draw_item_left_time"
+        android:text="@string/left_time"
+        android:textColor="@color/text"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@id/draw_time_label"
         app:layout_constraintEnd_toEndOf="parent"

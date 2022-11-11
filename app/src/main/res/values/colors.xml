@@ -8,8 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="draw_item_background">#016db6</color>
+    <color name="card">#016db6</color>
     <color name="background">#09485e</color>
-    <color name="draw_item_draw_time">#ffffff4d</color>
-    <color name="draw_item_left_time">#ffffff99</color>
+    <color name="text">#ffffff4d</color>
 </resources>

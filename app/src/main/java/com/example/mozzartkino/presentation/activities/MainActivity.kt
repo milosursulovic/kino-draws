@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.ActivityMainBinding
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.adapters.NumbersAdapter
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import com.example.mozzartkino.presentation.view_models.KinoViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var kinoAdapter: KinoAdapter
+
+    @Inject
+    lateinit var numbersAdapter: NumbersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

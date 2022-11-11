@@ -1,6 +1,7 @@
 package com.example.mozzartkino.di
 
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.adapters.NumbersAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,5 +15,11 @@ object AdapterModule {
     @Singleton
     fun providesKinoAdapter(): KinoAdapter {
         return KinoAdapter()
+    }
+
+    @Provides
+    @Singleton
+    fun providesNumbersAdapter(): NumbersAdapter {
+        return NumbersAdapter()
     }
 }
