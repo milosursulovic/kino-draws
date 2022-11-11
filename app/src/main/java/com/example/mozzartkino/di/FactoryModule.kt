@@ -1,7 +1,6 @@
 package com.example.mozzartkino.di
 
 import android.app.Application
-import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
 import com.example.mozzartkino.presentation.view_models.KinoViewModelFactory
 import dagger.Module
@@ -17,13 +16,11 @@ object FactoryModule {
     @Singleton
     fun providesKinoViewModelFactory(
         app: Application,
-        getDraws: GetDraws,
-        getDrawById: GetDrawById
+        getDraws: GetDraws
     ): KinoViewModelFactory {
         return KinoViewModelFactory(
             app,
-            getDraws,
-            getDrawById
+            getDraws
         )
     }
 }
