@@ -2,7 +2,6 @@ package com.example.mozzartkino.data.model
 
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class Draw(
     @SerializedName("drawBreak")
@@ -23,4 +22,4 @@ data class Draw(
     val visualDraw: Int,
     @SerializedName("wagerStatistics")
     val wagerStatistics: WagerStatistics
-): Serializable
+)

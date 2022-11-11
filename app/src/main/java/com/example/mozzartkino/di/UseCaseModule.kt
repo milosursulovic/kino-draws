@@ -1,6 +1,7 @@
 package com.example.mozzartkino.di
 
 import com.example.mozzartkino.domain.repository.KinoRepository
+import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,11 @@ object UseCaseModule {
     @Singleton
     fun providesGetDraws(repository: KinoRepository): GetDraws {
         return GetDraws(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetDrawById(repository: KinoRepository): GetDrawById {
+        return GetDrawById(repository)
     }
 }
