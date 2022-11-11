@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.databinding.DrawItemBinding
 import kotlinx.coroutines.*
+import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -67,9 +68,15 @@ class KinoAdapter : RecyclerView.Adapter<KinoAdapter.ViewHolder>() {
                     if (currentTime.time <= drawTime.time) {
                         val leftTimeFormatted =
                             convertLongToTime(true, drawTime.time - currentTime.time)
+                        val splited = leftTimeFormatted.split(":")
+                        val newLeftTimeFormatted = if (splited[0].toInt() == 1) {
+                            "${splited[1]}:${splited[2]}"
+                        } else {
+                            val newValue = splited[0].toInt() - 1
+                            "${newValue}:${splited[1]}:${splited[2]}"
+                        }
                         withContext(Dispatchers.Main) {
-                            leftTime.text = leftTimeFormatted
-                            Log.d(TAG, "ovde")
+                            leftTime.text = newLeftTimeFormatted
                         }
                     } else {
                         withContext(Dispatchers.Main) {
