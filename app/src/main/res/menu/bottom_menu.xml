@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/drawsFragment"
+        android:icon="@drawable/ic_baseline_live_tv_24"
+        android:title="Kola" />
+    <item
+        android:id="@+id/submitedDrawsFragment"
+        android:icon="@drawable/ic_baseline_playlist_add_24"
+        android:title="Odigrana kola" />
+    <item
+        android:id="@+id/resultsFragment"
+        android:icon="@drawable/ic_baseline_file_present_24"
+        android:title="Rezultati" />
+</menu>
