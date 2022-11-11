@@ -4,10 +4,10 @@ import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.repository.KinoRepository
 
-class GetDraws(
+class GetDrawById(
     private val repository: KinoRepository
 ) {
-    suspend fun execute(): Resource<List<Draw>> {
-        return repository.getDraws()
+    suspend fun execute(drawId: String): Resource<Draw> {
+        return repository.getDrawsById(drawId)
     }
 }
