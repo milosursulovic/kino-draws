@@ -8,7 +8,7 @@ import retrofit2.Response
 
 class KinoRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
-): KinoRepository {
+) : KinoRepository {
     override suspend fun getDraws(): Resource<List<Draw>> {
         return responseToResource(remoteDataSource.getDraws())
     }

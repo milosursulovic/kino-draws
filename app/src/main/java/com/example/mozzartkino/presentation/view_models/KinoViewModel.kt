@@ -19,7 +19,7 @@ class KinoViewModel(
     private val app: Application,
     private val getDrawsUseCase: GetDraws,
     private val getDrawByIdUseCase: GetDrawById
-): AndroidViewModel(app) {
+) : AndroidViewModel(app) {
     val draws = MutableLiveData<Resource<List<Draw>>>()
 
     fun getDraws() = viewModelScope.launch(Dispatchers.IO) {
