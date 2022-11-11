@@ -1,13 +1,11 @@
 package com.example.mozzartkino.data.model
 
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.mozzartkino.domain.model.Draw
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
-@Entity(tableName = "draws")
-data class Draw(
+data class DrawDto(
     @SerializedName("drawBreak")
     val drawBreak: Int,
     @PrimaryKey
@@ -27,4 +25,15 @@ data class Draw(
     val visualDraw: Int,
     @SerializedName("wagerStatistics")
     val wagerStatistics: WagerStatistics
-) : Serializable
+)
+
+fun DrawDto.toDraw(): Draw {
+    return Draw(
+        drawBreak,
+        drawId,
+        drawTime,
+        gameId,
+        status,
+        visualDraw
+    )
+}

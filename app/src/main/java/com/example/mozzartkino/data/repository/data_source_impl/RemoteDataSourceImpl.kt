@@ -1,18 +1,18 @@
 package com.example.mozzartkino.data.repository.data_source_impl
 
 import com.example.mozzartkino.data.api.KinoApiService
-import com.example.mozzartkino.data.model.Draw
+import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
 import retrofit2.Response
 
 class RemoteDataSourceImpl(
     private val api: KinoApiService
 ) : RemoteDataSource {
-    override suspend fun getDraws(): Response<List<Draw>> {
+    override suspend fun getDraws(): Response<List<DrawDto>> {
         return api.getDraws()
     }
 
-    override suspend fun getDrawById(drawId: String): Response<Draw> {
+    override suspend fun getDrawById(drawId: String): Response<DrawDto> {
         return api.getDrawById(drawId)
     }
 }

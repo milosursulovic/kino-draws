@@ -6,8 +6,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.databinding.DrawItemBinding
+import com.example.mozzartkino.domain.model.Draw
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*

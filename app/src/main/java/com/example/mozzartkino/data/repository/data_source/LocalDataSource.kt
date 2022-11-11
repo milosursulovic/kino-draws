@@ -1,7 +1,7 @@
 package com.example.mozzartkino.data.repository.data_source
 
 import androidx.lifecycle.LiveData
-import com.example.mozzartkino.data.model.Draw
+import com.example.mozzartkino.domain.model.Draw
 
 interface LocalDataSource {
     suspend fun saveDraw(draw: Draw)

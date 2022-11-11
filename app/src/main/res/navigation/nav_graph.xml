@@ -39,6 +39,6 @@
         tools:layout="@layout/fragment_info">
         <argument
             android:name="selected_draw"
-            app:argType="com.example.mozzartkino.data.model.Draw" />
+            app:argType="com.example.mozzartkino.domain.model.Draw" />
     </fragment>
 </navigation>

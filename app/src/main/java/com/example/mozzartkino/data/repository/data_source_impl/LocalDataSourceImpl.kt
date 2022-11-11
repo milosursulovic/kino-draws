@@ -2,8 +2,8 @@ package com.example.mozzartkino.data.repository.data_source_impl
 
 import androidx.lifecycle.LiveData
 import com.example.mozzartkino.data.db.KinoDao
-import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
+import com.example.mozzartkino.domain.model.Draw
 
 class LocalDataSourceImpl(
     private val dao: KinoDao

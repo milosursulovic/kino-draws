@@ -1,10 +1,11 @@
 package com.example.mozzartkino.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.mozzartkino.data.model.Draw
+import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
 import com.example.mozzartkino.data.util.Resource
+import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.repository.KinoRepository
 import retrofit2.Response
 
@@ -12,11 +13,11 @@ class KinoRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : KinoRepository {
-    override suspend fun getDraws(): Resource<List<Draw>> {
+    override suspend fun getDraws(): Resource<List<DrawDto>> {
         return responseToResource(remoteDataSource.getDraws())
     }
 
-    override suspend fun getDrawsById(drawId: String): Resource<Draw> {
+    override suspend fun getDrawsById(drawId: String): Resource<DrawDto> {
         return responseToResource(remoteDataSource.getDrawById(drawId))
     }
 

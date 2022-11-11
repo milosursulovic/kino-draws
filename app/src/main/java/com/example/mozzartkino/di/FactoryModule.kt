@@ -3,6 +3,8 @@ package com.example.mozzartkino.di
 import android.app.Application
 import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
+import com.example.mozzartkino.domain.use_case.GetSavedDraws
+import com.example.mozzartkino.domain.use_case.SaveDraw
 import com.example.mozzartkino.presentation.view_models.KinoViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -18,12 +20,16 @@ object FactoryModule {
     fun providesKinoViewModelFactory(
         app: Application,
         getDraws: GetDraws,
-        getDrawById: GetDrawById
+        getDrawById: GetDrawById,
+        saveDraw: SaveDraw,
+        getSavedDraws: GetSavedDraws
     ): KinoViewModelFactory {
         return KinoViewModelFactory(
             app,
             getDraws,
-            getDrawById
+            getDrawById,
+            saveDraw,
+            getSavedDraws
         )
     }
 }

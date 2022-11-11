@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
+import com.example.mozzartkino.data.model.toDraw
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.databinding.FragmentDrawsBinding
 import com.example.mozzartkino.presentation.activities.MainActivity
@@ -71,7 +72,8 @@ class DrawsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        kinoAdapter.differ.submitList(it)
+                        val mappedList = it.map { drawDto -> drawDto.toDraw() }
+                        kinoAdapter.differ.submitList(mappedList)
                     }
                 }
                 is Resource.Loading -> {

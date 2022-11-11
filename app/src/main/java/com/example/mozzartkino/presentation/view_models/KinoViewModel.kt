@@ -8,7 +8,7 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.mozzartkino.data.model.Draw
+import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
@@ -21,10 +21,10 @@ class KinoViewModel(
     private val app: Application,
     private val getDrawsUseCase: GetDraws,
     private val getDrawByIdUseCase: GetDrawById,
-    private val saveDraw: SaveDraw,
-    private val getSavedDraws: GetSavedDraws
+    private val saveDrawUseCase: SaveDraw,
+    private val getSavedDrawsUseCase: GetSavedDraws
 ) : AndroidViewModel(app) {
-    val draws = MutableLiveData<Resource<List<Draw>>>()
+    val draws = MutableLiveData<Resource<List<DrawDto>>>()
 
     fun getDraws() = viewModelScope.launch(Dispatchers.IO) {
         draws.postValue(Resource.Loading())
