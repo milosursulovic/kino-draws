@@ -12,13 +12,17 @@ import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
+import com.example.mozzartkino.domain.use_case.GetSavedDraws
+import com.example.mozzartkino.domain.use_case.SaveDraw
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class KinoViewModel(
     private val app: Application,
     private val getDrawsUseCase: GetDraws,
-    private val getDrawByIdUseCase: GetDrawById
+    private val getDrawByIdUseCase: GetDrawById,
+    private val saveDraw: SaveDraw,
+    private val getSavedDraws: GetSavedDraws
 ) : AndroidViewModel(app) {
     val draws = MutableLiveData<Resource<List<Draw>>>()
 

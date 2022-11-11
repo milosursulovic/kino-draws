@@ -1,6 +1,5 @@
 package com.example.mozzartkino.presentation.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mozzartkino.data.model.Draw
 import com.example.mozzartkino.databinding.DrawItemBinding
 import kotlinx.coroutines.*
-import java.security.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -3,6 +3,8 @@ package com.example.mozzartkino.di
 import com.example.mozzartkino.domain.repository.KinoRepository
 import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
+import com.example.mozzartkino.domain.use_case.GetSavedDraws
+import com.example.mozzartkino.domain.use_case.SaveDraw
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +24,17 @@ object UseCaseModule {
     @Singleton
     fun providesGetDrawById(repository: KinoRepository): GetDrawById {
         return GetDrawById(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesSaveDraw(repository: KinoRepository): SaveDraw {
+        return SaveDraw(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetSavedDraws(repository: KinoRepository): GetSavedDraws {
+        return GetSavedDraws(repository)
     }
 }

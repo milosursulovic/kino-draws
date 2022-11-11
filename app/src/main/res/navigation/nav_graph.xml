@@ -27,10 +27,18 @@
         android:id="@+id/resultsFragment"
         android:name="com.example.mozzartkino.presentation.fragments.ResultsFragment"
         android:label="fragment_results"
-        tools:layout="@layout/fragment_results" />
+        tools:layout="@layout/fragment_results">
+        <action
+            android:id="@+id/action_resultsFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.example.mozzartkino.presentation.fragments.InfoFragment"
         android:label="fragment_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_info">
+        <argument
+            android:name="selected_draw"
+            app:argType="com.example.mozzartkino.data.model.Draw" />
+    </fragment>
 </navigation>

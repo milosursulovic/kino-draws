@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.data.util.Resource
@@ -33,7 +34,10 @@ class DrawsFragment : Fragment() {
         viewModel = (activity as MainActivity).viewModel
         kinoAdapter = (activity as MainActivity).kinoAdapter
         kinoAdapter.setOnItemClickListener {
-
+            val bundle = Bundle().apply {
+                putSerializable("selected_draw", it)
+            }
+            findNavController().navigate(R.id.action_drawsFragment_to_infoFragment, bundle)
         }
         initRecyclerView()
         getDrawsList()

@@ -1,6 +1,7 @@
 package com.example.mozzartkino.di
 
 import com.example.mozzartkino.data.repository.KinoRepositoryImpl
+import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
 import com.example.mozzartkino.domain.repository.KinoRepository
 import dagger.Module
@@ -14,7 +15,10 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun providesKinoRepository(remoteDataSource: RemoteDataSource): KinoRepository {
-        return KinoRepositoryImpl(remoteDataSource)
+    fun providesKinoRepository(
+        remoteDataSource: RemoteDataSource,
+        localDataSource: LocalDataSource
+    ): KinoRepository {
+        return KinoRepositoryImpl(remoteDataSource, localDataSource)
     }
 }
