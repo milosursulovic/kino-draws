@@ -11,8 +11,4 @@ class RemoteDataSourceImpl(
     override suspend fun getDraws(): Response<List<DrawDto>> {
         return api.getDraws()
     }
-
-    override suspend fun getDrawById(drawId: String): Response<DrawDto> {
-        return api.getDrawById(drawId)
-    }
 }

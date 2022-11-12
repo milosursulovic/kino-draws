@@ -17,10 +17,6 @@ class KinoRepositoryImpl(
         return responseToResource(remoteDataSource.getDraws())
     }
 
-    override suspend fun getDrawsById(drawId: String): Resource<DrawDto> {
-        return responseToResource(remoteDataSource.getDrawById(drawId))
-    }
-
     private fun <T> responseToResource(response: Response<T>): Resource<T> {
         response.run {
             if (isSuccessful) {

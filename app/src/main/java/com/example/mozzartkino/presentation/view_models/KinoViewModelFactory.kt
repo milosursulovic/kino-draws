@@ -3,7 +3,6 @@ package com.example.mozzartkino.presentation.view_models
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
 import com.example.mozzartkino.domain.use_case.GetSavedDraws
 import com.example.mozzartkino.domain.use_case.SaveDraw
@@ -11,7 +10,6 @@ import com.example.mozzartkino.domain.use_case.SaveDraw
 class KinoViewModelFactory(
     private val app: Application,
     private val getDraws: GetDraws,
-    private val getDrawById: GetDrawById,
     private val saveDraw: SaveDraw,
     private val getSavedDraws: GetSavedDraws
 ) : ViewModelProvider.Factory {
@@ -19,7 +17,6 @@ class KinoViewModelFactory(
         return KinoViewModel(
             app,
             getDraws,
-            getDrawById,
             saveDraw,
             getSavedDraws
         ) as T

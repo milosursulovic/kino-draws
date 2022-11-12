@@ -5,5 +5,4 @@ import retrofit2.Response
 
 interface RemoteDataSource {
     suspend fun getDraws(): Response<List<DrawDto>>
-    suspend fun getDrawById(drawId: String): Response<DrawDto>
 }

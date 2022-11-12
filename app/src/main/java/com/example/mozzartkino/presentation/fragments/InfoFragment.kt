@@ -1,8 +1,6 @@
 package com.example.mozzartkino.presentation.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +12,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentInfoBinding
-import com.example.mozzartkino.databinding.NumberItemBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.activities.MainActivity
 import com.example.mozzartkino.presentation.adapters.NumbersAdapter
@@ -87,7 +84,11 @@ class InfoFragment : Fragment() {
                             incrementQuota()
                             textView.setBackgroundResource(R.drawable.on_number_selected)
                         } else {
-                            Toast.makeText(activity, resources.getString(R.string.cant_enter_more_than_8), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                activity,
+                                resources.getString(R.string.cant_enter_more_than_8),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -122,7 +123,8 @@ class InfoFragment : Fragment() {
             binding.btnCancel.text = resources.getString(R.string.close)
             binding.tvQuota.run {
                 visibility = View.VISIBLE
-                text = if (draw.quota > 85.0) draw.quota.toInt().toString() else draw.quota.toString()
+                text =
+                    if (draw.quota > 85.0) draw.quota.toInt().toString() else draw.quota.toString()
             }
             chosenNumbers = draw.submitedNumbers.split(":") as MutableList<String>
             numbersAdapter.differ.submitList(chosenNumbers)
