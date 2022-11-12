@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.util.Resource
@@ -65,5 +66,11 @@ class KinoViewModel(
 
     fun saveDraw(draw: Draw) = viewModelScope.launch(Dispatchers.IO) {
         saveDrawUseCase.execute(draw)
+    }
+
+    val savedDraws = liveData {
+        val data = getSavedDrawsUseCase.execute().collect {
+            emit(it)
+        }
     }
 }

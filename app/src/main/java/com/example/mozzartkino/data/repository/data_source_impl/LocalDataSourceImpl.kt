@@ -1,9 +1,9 @@
 package com.example.mozzartkino.data.repository.data_source_impl
 
-import androidx.lifecycle.LiveData
 import com.example.mozzartkino.data.db.KinoDao
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.domain.model.Draw
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSourceImpl(
     private val dao: KinoDao
@@ -12,7 +12,7 @@ class LocalDataSourceImpl(
         dao.saveDraw(draw)
     }
 
-    override fun getDraws(): LiveData<List<Draw>> {
+    override fun getDraws(): Flow<List<Draw>> {
         return dao.getAllDraws()
     }
 }

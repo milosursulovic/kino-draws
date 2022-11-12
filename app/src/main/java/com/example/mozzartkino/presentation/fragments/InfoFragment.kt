@@ -81,7 +81,11 @@ class InfoFragment : Fragment() {
         }
         binding.btnSubmit.setOnClickListener {
             if (chosenNumbers.size < 8) {
-                Toast.makeText(activity, resources.getString(R.string.enter_eight_numbers), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    resources.getString(R.string.enter_eight_numbers),
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 viewModel.saveDraw(
                     Draw(
@@ -90,7 +94,11 @@ class InfoFragment : Fragment() {
                         submitedNumbers = chosenNumbers.toString()
                     )
                 )
-                Toast.makeText(activity, resources.getString(R.string.successfully_submited), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    activity,
+                    resources.getString(R.string.successfully_submited),
+                    Toast.LENGTH_SHORT
+                ).show()
                 findNavController().navigate(action)
             }
         }

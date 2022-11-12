@@ -1,12 +1,12 @@
 package com.example.mozzartkino.data.repository
 
-import androidx.lifecycle.LiveData
 import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.repository.KinoRepository
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 class KinoRepositoryImpl(
@@ -36,7 +36,7 @@ class KinoRepositoryImpl(
         localDataSource.saveDraw(draw)
     }
 
-    override suspend fun getSavedDraws(): LiveData<List<Draw>> {
+    override suspend fun getSavedDraws(): Flow<List<Draw>> {
         return localDataSource.getDraws()
     }
 }

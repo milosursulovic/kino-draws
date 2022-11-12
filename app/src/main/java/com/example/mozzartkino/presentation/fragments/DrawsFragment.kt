@@ -83,7 +83,11 @@ class DrawsFragment : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
-                        Toast.makeText(activity, "${resources.getString(R.string.error_occurred)}: $it", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            activity,
+                            "${resources.getString(R.string.error_occurred)}: $it",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
                 }

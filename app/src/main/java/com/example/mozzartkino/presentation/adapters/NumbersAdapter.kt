@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mozzartkino.databinding.NumberItemBinding
 
-class NumbersAdapter: RecyclerView.Adapter<NumbersAdapter.ViewHolder>() {
+class NumbersAdapter : RecyclerView.Adapter<NumbersAdapter.ViewHolder>() {
 
     private val callback = object : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
@@ -40,7 +40,8 @@ class NumbersAdapter: RecyclerView.Adapter<NumbersAdapter.ViewHolder>() {
         return differ.currentList.size
     }
 
-    inner class ViewHolder(private val binding: NumberItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: NumberItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(number: String) {
             binding.tvNumber.text = number
 
