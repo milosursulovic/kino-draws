@@ -1,5 +1,6 @@
 package com.example.mozzartkino.di
 
+import android.app.Application
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
 import com.example.mozzartkino.presentation.adapters.NumbersAdapter
 import dagger.Module
@@ -13,8 +14,8 @@ import javax.inject.Singleton
 object AdapterModule {
     @Provides
     @Singleton
-    fun providesKinoAdapter(): KinoAdapter {
-        return KinoAdapter()
+    fun providesKinoAdapter(app: Application): KinoAdapter {
+        return KinoAdapter(app)
     }
 
     @Provides

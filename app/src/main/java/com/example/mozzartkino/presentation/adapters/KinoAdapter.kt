@@ -1,23 +1,20 @@
 package com.example.mozzartkino.presentation.adapters
 
+import android.app.Application
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.DrawItemBinding
 import com.example.mozzartkino.domain.model.Draw
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class KinoAdapter : RecyclerView.Adapter<KinoAdapter.ViewHolder>() {
-
-    companion object {
-        const val TAG = "debugTag"
-    }
-
+class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapter.ViewHolder>() {
     private val callback = object : DiffUtil.ItemCallback<Draw>() {
         override fun areItemsTheSame(oldItem: Draw, newItem: Draw): Boolean {
             return oldItem.drawId == newItem.drawId
@@ -78,7 +75,7 @@ class KinoAdapter : RecyclerView.Adapter<KinoAdapter.ViewHolder>() {
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            leftTime.text = "Gotovo!"
+                            leftTime.text = app.resources.getString(R.string.done)
                         }
                         break
                     }

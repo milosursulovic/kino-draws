@@ -1,5 +1,6 @@
 package com.example.mozzartkino.presentation.view_models
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
@@ -9,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.example.mozzartkino.R
 import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.model.Draw
@@ -26,6 +28,7 @@ class KinoViewModel(
     private val saveDrawUseCase: SaveDraw,
     private val getSavedDrawsUseCase: GetSavedDraws
 ) : AndroidViewModel(app) {
+
     val draws = MutableLiveData<Resource<List<DrawDto>>>()
 
     fun getDraws() = viewModelScope.launch(Dispatchers.IO) {
@@ -35,7 +38,7 @@ class KinoViewModel(
                 val apiResult = getDrawsUseCase.execute()
                 draws.postValue(apiResult)
             } else {
-                draws.postValue(Resource.Error("Internet is not available"))
+                draws.postValue(Resource.Error(app.resources.getString(R.string.internet_not_available)))
             }
         } catch (e: Exception) {
             draws.postValue(Resource.Error(e.message.toString()))
@@ -69,7 +72,7 @@ class KinoViewModel(
     }
 
     val savedDraws = liveData {
-        val data = getSavedDrawsUseCase.execute().collect {
+        getSavedDrawsUseCase.execute().collect {
             emit(it)
         }
     }
