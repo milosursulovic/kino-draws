@@ -29,11 +29,8 @@ data class DrawDto(
 
 fun DrawDto.toDraw(): Draw {
     return Draw(
-        drawBreak,
         drawId,
         drawTime,
-        gameId,
-        status,
-        visualDraw
+        ""
     )
 }

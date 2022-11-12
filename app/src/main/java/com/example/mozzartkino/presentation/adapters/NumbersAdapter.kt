@@ -2,6 +2,7 @@ package com.example.mozzartkino.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -45,15 +46,15 @@ class NumbersAdapter: RecyclerView.Adapter<NumbersAdapter.ViewHolder>() {
 
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
-                    it(number)
+                    it(number, binding.tvNumber)
                 }
             }
         }
     }
 
-    private var onItemClickListener: ((String) -> Unit)? = null
+    private var onItemClickListener: ((String, TextView) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (String) -> Unit) {
+    fun setOnItemClickListener(listener: (String, TextView) -> Unit) {
         onItemClickListener = listener
     }
 }

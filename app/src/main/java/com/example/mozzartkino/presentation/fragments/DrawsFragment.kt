@@ -37,6 +37,7 @@ class DrawsFragment : Fragment() {
         kinoAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("selected_draw", it)
+                putString("from", "Draws")
             }
             findNavController().navigate(R.id.action_drawsFragment_to_infoFragment, bundle)
         }
@@ -82,7 +83,7 @@ class DrawsFragment : Fragment() {
                 is Resource.Error -> {
                     hideProgressBar()
                     response.message?.let {
-                        Toast.makeText(activity, "An error occurred: $it", Toast.LENGTH_SHORT)
+                        Toast.makeText(activity, "${resources.getString(R.string.error_occurred)}: $it", Toast.LENGTH_SHORT)
                             .show()
                     }
                 }

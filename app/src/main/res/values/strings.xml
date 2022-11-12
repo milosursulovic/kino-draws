@@ -3,4 +3,9 @@
     <string name="draw_time">Vreme izlacenja:</string>
     <string name="left_time">Preostalo za uplatu:</string>
     <string name="draw">Kolo</string>
+    <string name="cancel">Otkazi</string>
+    <string name="play">Odigraj</string>
+    <string name="enter_eight_numbers">Unesite 8 broja</string>
+    <string name="successfully_submited">Uspesno odigrano kolo</string>
+    <string name="error_occurred">An error occurred</string>
 </resources>

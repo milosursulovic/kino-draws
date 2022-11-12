@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mozzartkino.data.model.DrawDto
 import com.example.mozzartkino.data.util.Resource
+import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.use_case.GetDrawById
 import com.example.mozzartkino.domain.use_case.GetDraws
 import com.example.mozzartkino.domain.use_case.GetSavedDraws
@@ -60,5 +61,9 @@ class KinoViewModel(
             }
         }
         return false
+    }
+
+    fun saveDraw(draw: Draw) = viewModelScope.launch(Dispatchers.IO) {
+        saveDrawUseCase.execute(draw)
     }
 }

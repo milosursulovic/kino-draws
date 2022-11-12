@@ -6,11 +6,8 @@ import java.io.Serializable
 
 @Entity(tableName = "draws")
 data class Draw(
-    val drawBreak: Int,
     @PrimaryKey
     val drawId: Int,
     val drawTime: Long,
-    val gameId: Int,
-    val status: String,
-    val visualDraw: Int
+    val submitedNumbers: String
 ) : Serializable
