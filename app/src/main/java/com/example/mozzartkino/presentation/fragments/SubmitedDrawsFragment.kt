@@ -34,7 +34,7 @@ class SubmitedDrawsFragment : Fragment() {
         kinoAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("selected_draw", it)
-                putString("from", "SubmitedDraws")
+                putString("from", "Submited_Draws")
             }
             findNavController().navigate(R.id.action_submitedDrawsFragment_to_infoFragment, bundle)
         }

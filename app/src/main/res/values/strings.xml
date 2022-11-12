@@ -5,9 +5,12 @@
     <string name="draw">Kolo: </string>
     <string name="cancel">Otkazi</string>
     <string name="play">Odigraj</string>
-    <string name="enter_eight_numbers">Unesite 8 broja</string>
+    <string name="enter_at_least_one">Morate uneti bar jedan broj</string>
     <string name="successfully_submited">Uspesno odigrano kolo</string>
     <string name="error_occurred">Doslo je do greske</string>
     <string name="internet_not_available">Proverite internet konekciju</string>
-    <string name="done">Gotovo!</string>
+    <string name="done">Zavrseno!</string>
+    <string name="close">Zatvori</string>
+    <string name="cant_enter_more_than_8">Ne mozete uneti vise od 8 broja</string>
+    <string name="quota">Kvota</string>
 </resources>

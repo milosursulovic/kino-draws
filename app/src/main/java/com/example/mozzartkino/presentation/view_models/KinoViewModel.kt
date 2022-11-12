@@ -1,6 +1,5 @@
 package com.example.mozzartkino.presentation.view_models
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager

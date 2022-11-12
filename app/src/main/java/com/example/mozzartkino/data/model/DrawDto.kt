@@ -29,8 +29,10 @@ data class DrawDto(
 
 fun DrawDto.toDraw(): Draw {
     return Draw(
+        null,
         drawId,
         drawTime,
-        ""
+        "",
+        0.0
     )
 }
