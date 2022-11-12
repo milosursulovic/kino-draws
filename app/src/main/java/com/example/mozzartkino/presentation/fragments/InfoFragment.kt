@@ -56,11 +56,18 @@ class InfoFragment : Fragment() {
             text = draw.drawId.toString()
         }
 
+        binding.tvPlaceholder.text = when (from) {
+            From.Draws -> resources.getString(R.string.submit_numbers)
+            From.SubmitedDraws -> resources.getString(R.string.submited_numbers)
+            else -> resources.getString(R.string.winning_numbers)
+        }
+
         viewModel = (activity as MainActivity).viewModel
         numbersAdapter = (activity as MainActivity).numbersAdapter
         numbersAdapter.setOnItemClickListener { number, textView ->
             handleOnClick(number, textView)
         }
+
         initRecyclerView()
         buildNumbersList()
         buttonsListeners()

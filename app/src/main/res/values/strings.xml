@@ -13,4 +13,7 @@
     <string name="close">Zatvori</string>
     <string name="cant_enter_more_than_8">Ne mozete uneti vise od 8 broja</string>
     <string name="quota">Kvota</string>
+    <string name="winning_numbers">"Dobitni brojevi: "</string>
+    <string name="submited_numbers">"Uneti brojevi: "</string>
+    <string name="submit_numbers">"Unesi brojeve: "</string>
 </resources>
