@@ -171,6 +171,18 @@ class InfoFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+        binding.ivWatch.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString(
+                    "url",
+                    "https://ds.opap.gr/web_kino/kinoIframe.html?link=https://ds.opap.gr/web_kino/kino/html/Internet_PRODUCTION/KinoDraw_${draw.drawId}.html&resolution=847x500"
+                )
+            }
+            findNavController().navigate(R.id.action_infoFragment_to_webClientFragment, bundle)
+        }
+        if (from == From.Draws) {
+            binding.ivWatch.visibility = View.VISIBLE
+        }
     }
 
     private fun initRecyclerView() {
