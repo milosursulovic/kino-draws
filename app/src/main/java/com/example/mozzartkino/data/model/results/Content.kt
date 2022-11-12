@@ -1,14 +1,12 @@
-package com.example.mozzartkino.data.model
+package com.example.mozzartkino.data.model.results
 
 
-import androidx.room.PrimaryKey
 import com.example.mozzartkino.domain.model.Draw
 import com.google.gson.annotations.SerializedName
 
-data class DrawDto(
+data class Content(
     @SerializedName("drawBreak")
     val drawBreak: Int,
-    @PrimaryKey
     @SerializedName("drawId")
     val drawId: Int,
     @SerializedName("drawTime")
@@ -24,15 +22,29 @@ data class DrawDto(
     @SerializedName("visualDraw")
     val visualDraw: Int,
     @SerializedName("wagerStatistics")
-    val wagerStatistics: WagerStatistics
+    val wagerStatistics: WagerStatistics,
+    @SerializedName("winningNumbers")
+    val winningNumbers: WinningNumbers
 )
 
-fun DrawDto.toDraw(): Draw {
+fun Content.toDraw(): Draw {
     return Draw(
         null,
         drawId,
         drawTime,
-        "",
-        0.0
+        winningNumbers.list.joinToString(":"),
+        calculateQuota(winningNumbers.list.size)
     )
+}
+
+fun calculateQuota(listSize: Int) = when (listSize) {
+    1 -> 4.00
+    2 -> 18.00
+    3 -> 85.00
+    4 -> 400.00
+    5 -> 2000.00
+    6 -> 10000.00
+    7 -> 50000.00
+    8 -> 250000.00
+    else -> 0.0
 }

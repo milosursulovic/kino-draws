@@ -1,4 +1,4 @@
-package com.example.mozzartkino.data.model
+package com.example.mozzartkino.data.model.results
 
 
 import com.google.gson.annotations.SerializedName
@@ -7,9 +7,9 @@ data class PrizeCategory(
     @SerializedName("categoryType")
     val categoryType: Int,
     @SerializedName("distributed")
-    val distributed: Int,
+    val distributed: Double,
     @SerializedName("divident")
-    val divident: Int,
+    val divident: Double,
     @SerializedName("fixed")
     val fixed: Double,
     @SerializedName("gameType")

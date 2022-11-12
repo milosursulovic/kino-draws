@@ -1,4 +1,4 @@
-package com.example.mozzartkino.data.model
+package com.example.mozzartkino.data.model.results
 
 
 import com.google.gson.annotations.SerializedName

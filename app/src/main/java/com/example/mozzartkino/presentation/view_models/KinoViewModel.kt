@@ -10,21 +10,30 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.mozzartkino.R
-import com.example.mozzartkino.data.model.DrawDto
+import com.example.mozzartkino.data.model.draw.DrawDto
+import com.example.mozzartkino.data.model.results.ResultsDto
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.use_case.GetDraws
+import com.example.mozzartkino.domain.use_case.GetResults
 import com.example.mozzartkino.domain.use_case.GetSavedDraws
 import com.example.mozzartkino.domain.use_case.SaveDraw
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class KinoViewModel(
     private val app: Application,
     private val getDrawsUseCase: GetDraws,
+    private val getResultsUseCase: GetResults,
     private val saveDrawUseCase: SaveDraw,
     private val getSavedDrawsUseCase: GetSavedDraws
 ) : AndroidViewModel(app) {
+    companion object {
+        const val TAG = "debugTag"
+    }
 
     val draws = MutableLiveData<Resource<List<DrawDto>>>()
 
@@ -39,6 +48,22 @@ class KinoViewModel(
             }
         } catch (e: Exception) {
             draws.postValue(Resource.Error(e.message.toString()))
+        }
+    }
+
+    val results = MutableLiveData<Resource<ResultsDto>>()
+
+    fun getResults() = viewModelScope.launch(Dispatchers.IO) {
+        results.postValue(Resource.Loading())
+        try {
+            if (isNetworkAvailable(app)) {
+                val apiResult = getResultsUseCase.execute(getToday(), getToday())
+                results.postValue(apiResult)
+            } else {
+                results.postValue(Resource.Error(app.resources.getString(R.string.internet_not_available)))
+            }
+        } catch (e: Exception) {
+            results.postValue(Resource.Error(e.message.toString()))
         }
     }
 
@@ -72,5 +97,12 @@ class KinoViewModel(
         getSavedDrawsUseCase.execute().collect {
             emit(it)
         }
+    }
+
+    private fun getToday(): String {
+        val dateFormatter: DateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        dateFormatter.isLenient = false
+        val today = Date()
+        return dateFormatter.format(today)
     }
 }

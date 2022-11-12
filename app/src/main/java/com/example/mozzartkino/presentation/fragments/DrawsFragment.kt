@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
-import com.example.mozzartkino.data.model.toDraw
+import com.example.mozzartkino.data.model.draw.toDraw
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.databinding.FragmentDrawsBinding
 import com.example.mozzartkino.presentation.activities.MainActivity

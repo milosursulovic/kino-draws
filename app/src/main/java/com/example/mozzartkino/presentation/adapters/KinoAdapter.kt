@@ -91,7 +91,7 @@ class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapt
         }
     }
 
-    fun convertLongToTime(isTimer: Boolean, time: Long): String {
+    private fun convertLongToTime(isTimer: Boolean, time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat(if (isTimer) "HH:mm:ss" else "HH:mm", Locale.getDefault())
         return format.format(date)

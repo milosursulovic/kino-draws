@@ -2,6 +2,7 @@ package com.example.mozzartkino.di
 
 import com.example.mozzartkino.domain.repository.KinoRepository
 import com.example.mozzartkino.domain.use_case.GetDraws
+import com.example.mozzartkino.domain.use_case.GetResults
 import com.example.mozzartkino.domain.use_case.GetSavedDraws
 import com.example.mozzartkino.domain.use_case.SaveDraw
 import dagger.Module
@@ -17,6 +18,12 @@ object UseCaseModule {
     @Singleton
     fun providesGetDraws(repository: KinoRepository): GetDraws {
         return GetDraws(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun providesGetResults(repository: KinoRepository): GetResults {
+        return GetResults(repository)
     }
 
     @Provides

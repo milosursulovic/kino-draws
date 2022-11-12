@@ -1,13 +1,13 @@
 package com.example.mozzartkino.domain.use_case
 
-import com.example.mozzartkino.data.model.draw.DrawDto
+import com.example.mozzartkino.data.model.results.ResultsDto
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.repository.KinoRepository
 
-class GetDraws(
+class GetResults(
     private val repository: KinoRepository
 ) {
-    suspend fun execute(): Resource<List<DrawDto>> {
-        return repository.getDraws()
+    suspend fun execute(fromDate: String, toDate: String): Resource<ResultsDto> {
+        return repository.getResults(fromDate, toDate)
     }
 }

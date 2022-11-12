@@ -1,6 +1,7 @@
 package com.example.mozzartkino.data.repository
 
-import com.example.mozzartkino.data.model.DrawDto
+import com.example.mozzartkino.data.model.draw.DrawDto
+import com.example.mozzartkino.data.model.results.ResultsDto
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
 import com.example.mozzartkino.data.util.Resource
@@ -15,6 +16,10 @@ class KinoRepositoryImpl(
 ) : KinoRepository {
     override suspend fun getDraws(): Resource<List<DrawDto>> {
         return responseToResource(remoteDataSource.getDraws())
+    }
+
+    override suspend fun getResults(fromDate: String, toDate: String): Resource<ResultsDto> {
+        return responseToResource(remoteDataSource.getResults(fromDate, toDate))
     }
 
     private fun <T> responseToResource(response: Response<T>): Resource<T> {
