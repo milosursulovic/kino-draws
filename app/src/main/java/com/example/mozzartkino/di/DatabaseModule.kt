@@ -15,19 +15,15 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun providesDatabase(app: Application): KinoDatabase {
-        return Room.databaseBuilder(
-            app,
-            KinoDatabase::class.java,
-            "kino_db"
-        )
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+    fun providesDatabase(app: Application): KinoDatabase = Room.databaseBuilder(
+        app,
+        KinoDatabase::class.java,
+        "kino_db"
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
     @Provides
     @Singleton
-    fun providesKinoDao(db: KinoDatabase): KinoDao {
-        return db.kinoDao
-    }
+    fun providesKinoDao(db: KinoDatabase): KinoDao = db.kinoDao
 }

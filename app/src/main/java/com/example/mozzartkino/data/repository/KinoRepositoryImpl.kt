@@ -4,40 +4,27 @@ import com.example.mozzartkino.data.model.draw.DrawDto
 import com.example.mozzartkino.data.model.results.ResultsDto
 import com.example.mozzartkino.data.repository.data_source.LocalDataSource
 import com.example.mozzartkino.data.repository.data_source.RemoteDataSource
-import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.repository.KinoRepository
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Response
 
 class KinoRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ) : KinoRepository {
-    override suspend fun getDraws(): Resource<List<DrawDto>> {
-        return responseToResource(remoteDataSource.getDraws())
+    override suspend fun getDraws(): List<DrawDto> {
+        return remoteDataSource.getDraws()
     }
 
-    override suspend fun getResults(fromDate: String, toDate: String): Resource<ResultsDto> {
-        return responseToResource(remoteDataSource.getResults(fromDate, toDate))
-    }
-
-    private fun <T> responseToResource(response: Response<T>): Resource<T> {
-        response.run {
-            if (isSuccessful) {
-                body()?.let { result ->
-                    return Resource.Success(result)
-                } ?: return Resource.Error(response.message())
-            }
-        }
-        return Resource.Error(response.message())
+    override suspend fun getResults(fromDate: String, toDate: String): ResultsDto {
+        return remoteDataSource.getResults(fromDate, toDate)
     }
 
     override suspend fun saveDraw(draw: Draw) {
         localDataSource.saveDraw(draw)
     }
 
-    override suspend fun getSavedDraws(): Flow<List<Draw>> {
+    override fun getSavedDraws(): Flow<List<Draw>> {
         return localDataSource.getDraws()
     }
 }

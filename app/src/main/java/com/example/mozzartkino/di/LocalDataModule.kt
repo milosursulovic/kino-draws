@@ -14,7 +14,5 @@ import javax.inject.Singleton
 object LocalDataModule {
     @Provides
     @Singleton
-    fun providesLocalDataSource(dao: KinoDao): LocalDataSource {
-        return LocalDataSourceImpl(dao)
-    }
+    fun providesLocalDataSource(dao: KinoDao): LocalDataSource = LocalDataSourceImpl(dao)
 }

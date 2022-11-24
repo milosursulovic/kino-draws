@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:padding="4dp"
-    tools:context=".presentation.fragments.SubmitedDrawsFragment">
+    tools:context=".presentation.fragments.SubmittedDrawsFragment">
 
     <TextView
         android:id="@+id/draw_time_label"

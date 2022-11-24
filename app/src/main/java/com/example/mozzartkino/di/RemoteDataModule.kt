@@ -14,7 +14,5 @@ import javax.inject.Singleton
 object RemoteDataModule {
     @Provides
     @Singleton
-    fun providesRemoteDataSource(api: KinoApiService): RemoteDataSource {
-        return RemoteDataSourceImpl(api)
-    }
+    fun providesRemoteDataSource(api: KinoApiService): RemoteDataSource = RemoteDataSourceImpl(api)
 }

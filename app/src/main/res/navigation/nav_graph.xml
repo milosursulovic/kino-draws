@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/submitedDrawsFragment"
-        android:name="com.example.mozzartkino.presentation.fragments.SubmitedDrawsFragment"
+        android:name="com.example.mozzartkino.presentation.fragments.SubmittedDrawsFragment"
         android:label="fragment_submited_draws"
         tools:layout="@layout/fragment_submited_draws">
         <action

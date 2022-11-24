@@ -7,20 +7,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentInfoBinding
 import com.example.mozzartkino.domain.model.Draw
-import com.example.mozzartkino.presentation.activities.MainActivity
 import com.example.mozzartkino.presentation.adapters.NumbersAdapter
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class InfoFragment : Fragment() {
     private lateinit var binding: FragmentInfoBinding
-    private lateinit var viewModel: KinoViewModel
-    private lateinit var numbersAdapter: NumbersAdapter
+    private val viewModel: KinoViewModel by viewModels()
+
+    @Inject
+    lateinit var numbersAdapter: NumbersAdapter
     private lateinit var from: From
     private lateinit var draw: Draw
     private var chosenNumbers = mutableListOf<String>()
@@ -62,8 +67,6 @@ class InfoFragment : Fragment() {
             else -> resources.getString(R.string.winning_numbers)
         }
 
-        viewModel = (activity as MainActivity).viewModel
-        numbersAdapter = (activity as MainActivity).numbersAdapter
         numbersAdapter.setOnItemClickListener { number, textView ->
             handleOnClick(number, textView)
         }

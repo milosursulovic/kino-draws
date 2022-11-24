@@ -5,18 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentSubmitedDrawsBinding
-import com.example.mozzartkino.presentation.activities.MainActivity
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class SubmitedDrawsFragment : Fragment() {
+@AndroidEntryPoint
+class SubmittedDrawsFragment : Fragment() {
     private lateinit var binding: FragmentSubmitedDrawsBinding
-    private lateinit var viewModel: KinoViewModel
-    private lateinit var kinoAdapter: KinoAdapter
+    private val viewModel: KinoViewModel by viewModels()
+
+    @Inject
+    lateinit var kinoAdapter: KinoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,8 +37,6 @@ class SubmitedDrawsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSubmitedDrawsBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
-        kinoAdapter = (activity as MainActivity).kinoAdapter
         kinoAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("selected_draw", it)
@@ -50,8 +56,8 @@ class SubmitedDrawsFragment : Fragment() {
     }
 
     private fun getSavedDrawsList() {
-        viewModel.savedDraws.observe(viewLifecycleOwner) {
+        viewModel.getSavedDraws().onEach {
             kinoAdapter.differ.submitList(it)
-        }
+        }.launchIn(lifecycleScope)
     }
 }
