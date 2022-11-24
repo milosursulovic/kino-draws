@@ -6,21 +6,17 @@ import com.example.mozzartkino.presentation.adapters.NumbersAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.scopes.FragmentScoped
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(FragmentComponent::class)
 object AdapterModule {
     @Provides
-    @Singleton
-    fun providesKinoAdapter(app: Application): KinoAdapter {
-        return KinoAdapter(app)
-    }
+    @FragmentScoped
+    fun providesKinoAdapter(app: Application): KinoAdapter = KinoAdapter(app)
 
     @Provides
-    @Singleton
-    fun providesNumbersAdapter(): NumbersAdapter {
-        return NumbersAdapter()
-    }
+    @FragmentScoped
+    fun providesNumbersAdapter(): NumbersAdapter = NumbersAdapter()
 }

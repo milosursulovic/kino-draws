@@ -6,20 +6,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
-import com.example.mozzartkino.data.model.results.toDraw
 import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.databinding.FragmentResultsBinding
-import com.example.mozzartkino.presentation.activities.MainActivity
+import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.util.FragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class ResultsFragment : Fragment() {
+@AndroidEntryPoint
+class ResultsFragment : Fragment(), FragmentUtils {
     private lateinit var binding: FragmentResultsBinding
-    private lateinit var viewModel: KinoViewModel
-    private lateinit var kinoAdapter: KinoAdapter
+    private val viewModel: KinoViewModel by viewModels()
+
+    @Inject
+    lateinit var kinoAdapter: KinoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,45 +41,45 @@ class ResultsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentResultsBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
-        kinoAdapter = (activity as MainActivity).kinoAdapter
         kinoAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("selected_draw", it)
-                putString("from", "Results")
-            }
-            findNavController().navigate(R.id.action_resultsFragment_to_infoFragment, bundle)
+            navigateToInfo(it)
         }
         initRecyclerView()
         getDrawsList()
     }
 
-    private fun initRecyclerView() {
+    override fun initRecyclerView() {
         binding.rvResults.run {
             adapter = kinoAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
-    private fun showProgressBar() {
+    override fun navigateToInfo(draw: Draw) {
+        val bundle = Bundle().apply {
+            putSerializable("selected_draw", draw)
+            putString("from", "Results")
+        }
+        findNavController().navigate(R.id.action_resultsFragment_to_infoFragment, bundle)
+    }
+
+    override fun showProgressBar() {
         binding.progressBar.visibility = View.VISIBLE
         binding.rvResults.visibility = View.GONE
     }
 
-    private fun hideProgressBar() {
+    override fun hideProgressBar() {
         binding.progressBar.visibility = View.GONE
         binding.rvResults.visibility = View.VISIBLE
     }
 
-    private fun getDrawsList() {
-        viewModel.getResults()
-        viewModel.results.observe(viewLifecycleOwner) { response ->
+    override fun getDrawsList() {
+        viewModel.getResults().onEach { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let {
-                        val mappedList = it.content.map { dto -> dto.toDraw() }
-                        kinoAdapter.differ.submitList(mappedList)
+                        kinoAdapter.differ.submitList(it)
                     }
                 }
                 is Resource.Loading -> {
@@ -81,13 +90,13 @@ class ResultsFragment : Fragment() {
                     response.message?.let {
                         Toast.makeText(
                             activity,
-                            "${resources.getString(R.string.error_occurred)}: $it",
+                            it,
                             Toast.LENGTH_SHORT
                         )
                             .show()
                     }
                 }
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 }

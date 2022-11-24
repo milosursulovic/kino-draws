@@ -3,10 +3,10 @@ package com.example.mozzartkino.domain.use_case
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.repository.KinoRepository
 
-class SaveDraw(
+class SaveDrawUseCase(
     private val repository: KinoRepository
 ) {
-    suspend fun execute(draw: Draw) {
+    suspend operator fun invoke(draw: Draw) {
         repository.saveDraw(draw)
     }
 }

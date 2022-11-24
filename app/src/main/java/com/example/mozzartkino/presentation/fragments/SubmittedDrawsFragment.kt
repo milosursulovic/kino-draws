@@ -5,18 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentSubmitedDrawsBinding
-import com.example.mozzartkino.presentation.activities.MainActivity
+import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.util.FragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class SubmitedDrawsFragment : Fragment() {
+@AndroidEntryPoint
+class SubmittedDrawsFragment : Fragment(), FragmentUtils {
     private lateinit var binding: FragmentSubmitedDrawsBinding
-    private lateinit var viewModel: KinoViewModel
-    private lateinit var kinoAdapter: KinoAdapter
+    private val viewModel: KinoViewModel by viewModels()
+
+    @Inject
+    lateinit var kinoAdapter: KinoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,29 +39,31 @@ class SubmitedDrawsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSubmitedDrawsBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
-        kinoAdapter = (activity as MainActivity).kinoAdapter
         kinoAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("selected_draw", it)
-                putString("from", "Submited_Draws")
-            }
-            findNavController().navigate(R.id.action_submitedDrawsFragment_to_infoFragment, bundle)
+            navigateToInfo(it)
         }
         initRecyclerView()
-        getSavedDrawsList()
+        getDrawsList()
     }
 
-    private fun initRecyclerView() {
+    override fun initRecyclerView() {
         binding.rvSavedDraws.run {
             adapter = kinoAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
-    private fun getSavedDrawsList() {
-        viewModel.savedDraws.observe(viewLifecycleOwner) {
-            kinoAdapter.differ.submitList(it)
+    override fun navigateToInfo(draw: Draw) {
+        val bundle = Bundle().apply {
+            putSerializable("selected_draw", draw)
+            putString("from", "Submited_Draws")
         }
+        findNavController().navigate(R.id.action_submitedDrawsFragment_to_infoFragment, bundle)
+    }
+
+    override fun getDrawsList() {
+        viewModel.getSavedDraws().onEach {
+            kinoAdapter.differ.submitList(it)
+        }.launchIn(lifecycleScope)
     }
 }

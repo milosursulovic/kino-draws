@@ -42,14 +42,16 @@ class NumbersAdapter : RecyclerView.Adapter<NumbersAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: NumberItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(number: String) {
-            binding.tvNumber.text = number
-
+        init {
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
-                    it(number, binding.tvNumber)
+                    it(differ.currentList[adapterPosition], binding.tvNumber)
                 }
             }
+        }
+
+        fun bind(number: String) {
+            binding.tvNumber.text = number
         }
     }
 

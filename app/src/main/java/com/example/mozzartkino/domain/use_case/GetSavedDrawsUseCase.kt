@@ -4,10 +4,10 @@ import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.domain.repository.KinoRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetSavedDraws(
+class GetSavedDrawsUseCase(
     private val repository: KinoRepository
 ) {
-    suspend fun execute(): Flow<List<Draw>> {
+    operator fun invoke(): Flow<List<Draw>> {
         return repository.getSavedDraws()
     }
 }

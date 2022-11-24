@@ -18,7 +18,5 @@ object RepositoryModule {
     fun providesKinoRepository(
         remoteDataSource: RemoteDataSource,
         localDataSource: LocalDataSource
-    ): KinoRepository {
-        return KinoRepositoryImpl(remoteDataSource, localDataSource)
-    }
+    ): KinoRepository = KinoRepositoryImpl(remoteDataSource, localDataSource)
 }

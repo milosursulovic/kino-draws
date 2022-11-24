@@ -15,16 +15,13 @@ import javax.inject.Singleton
 object NetModule {
     @Provides
     @Singleton
-    fun providesRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BuildConfig.BASE_URL)
-            .build()
-    }
+    fun providesRetrofit(): Retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(BuildConfig.BASE_URL)
+        .build()
 
     @Provides
     @Singleton
-    fun providesKinoApiService(retrofit: Retrofit): KinoApiService {
-        return retrofit.create(KinoApiService::class.java)
-    }
+    fun providesKinoApiService(retrofit: Retrofit): KinoApiService =
+        retrofit.create(KinoApiService::class.java)
 }

@@ -3,18 +3,21 @@ package com.example.mozzartkino.presentation.adapters
 import android.app.Application
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.DrawItemBinding
 import com.example.mozzartkino.domain.model.Draw
-import kotlinx.coroutines.*
+import com.example.mozzartkino.presentation.util.ViewHolderTimerImpl
+import com.example.mozzartkino.util.date.DateTimeUtils
+import kotlinx.coroutines.Job
 import java.text.SimpleDateFormat
 import java.util.*
 
-class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapter.ViewHolder>() {
+class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapter.ViewHolder>(),
+    DateTimeUtils {
+    private val jobs = mutableMapOf<Int, Job>()
+
     private val callback = object : DiffUtil.ItemCallback<Draw>() {
         override fun areItemsTheSame(oldItem: Draw, newItem: Draw): Boolean {
             return oldItem.drawId == newItem.drawId
@@ -45,53 +48,38 @@ class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapt
         return differ.currentList.size
     }
 
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        val drawTime = Date(differ.currentList[holder.adapterPosition].drawTime)
+        jobs[holder.adapterPosition] =
+            ViewHolderTimerImpl().getJob(app, drawTime, holder.leftTime, this@KinoAdapter)
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        jobs[holder.adapterPosition]?.cancel()
+        jobs.remove(holder.adapterPosition)
+    }
+
     inner class ViewHolder(private val binding: DrawItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var leftTime: TextView
-        private lateinit var drawTime: Date
+        var leftTime = binding.leftTime
 
-        fun bind(draw: Draw) {
-            drawTime = Date(draw.drawTime)
-            val time = convertLongToTime(false, draw.drawTime)
-
-            binding.drawTime.text = time
-            leftTime = binding.leftTime
-
-            CoroutineScope(Dispatchers.IO).launch {
-                while (true) {
-                    val currentTime = Date(System.currentTimeMillis())
-                    if (currentTime.time <= drawTime.time) {
-                        val leftTimeFormatted =
-                            convertLongToTime(true, drawTime.time - currentTime.time)
-                        val splited = leftTimeFormatted.split(":")
-                        val newLeftTimeFormatted = if (splited[0].toInt() == 1) {
-                            "${splited[1]}:${splited[2]}"
-                        } else {
-                            val newValue = splited[0].toInt() - 1
-                            "${newValue}:${splited[1]}:${splited[2]}"
-                        }
-                        withContext(Dispatchers.Main) {
-                            leftTime.text = newLeftTimeFormatted
-                        }
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            leftTime.text = app.resources.getString(R.string.done)
-                        }
-                        break
-                    }
-                    delay(1000)
-                }
-            }
-
+        init {
             binding.root.setOnClickListener {
                 onItemClickListener?.let {
-                    it(draw)
+                    it(differ.currentList[adapterPosition])
                 }
             }
         }
+
+        fun bind(draw: Draw) {
+            val time = convertLongToTime(false, draw.drawTime)
+            binding.drawTime.text = time
+        }
     }
 
-    private fun convertLongToTime(isTimer: Boolean, time: Long): String {
+    override fun convertLongToTime(isTimer: Boolean, time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat(if (isTimer) "HH:mm:ss" else "HH:mm", Locale.getDefault())
         return format.format(date)

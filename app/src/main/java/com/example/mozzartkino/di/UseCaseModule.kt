@@ -1,10 +1,11 @@
 package com.example.mozzartkino.di
 
+import android.app.Application
 import com.example.mozzartkino.domain.repository.KinoRepository
-import com.example.mozzartkino.domain.use_case.GetDraws
-import com.example.mozzartkino.domain.use_case.GetResults
-import com.example.mozzartkino.domain.use_case.GetSavedDraws
-import com.example.mozzartkino.domain.use_case.SaveDraw
+import com.example.mozzartkino.domain.use_case.GetDrawsUseCase
+import com.example.mozzartkino.domain.use_case.GetResultsUseCase
+import com.example.mozzartkino.domain.use_case.GetSavedDrawsUseCase
+import com.example.mozzartkino.domain.use_case.SaveDrawUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,25 +17,20 @@ import javax.inject.Singleton
 object UseCaseModule {
     @Provides
     @Singleton
-    fun providesGetDraws(repository: KinoRepository): GetDraws {
-        return GetDraws(repository)
-    }
+    fun providesGetDraws(app: Application, repository: KinoRepository): GetDrawsUseCase =
+        GetDrawsUseCase(app, repository)
 
     @Provides
     @Singleton
-    fun providesGetResults(repository: KinoRepository): GetResults {
-        return GetResults(repository)
-    }
+    fun providesGetResults(app: Application, repository: KinoRepository): GetResultsUseCase =
+        GetResultsUseCase(app, repository)
 
     @Provides
     @Singleton
-    fun providesSaveDraw(repository: KinoRepository): SaveDraw {
-        return SaveDraw(repository)
-    }
+    fun providesSaveDraw(repository: KinoRepository): SaveDrawUseCase = SaveDrawUseCase(repository)
 
     @Provides
     @Singleton
-    fun providesGetSavedDraws(repository: KinoRepository): GetSavedDraws {
-        return GetSavedDraws(repository)
-    }
+    fun providesGetSavedDraws(repository: KinoRepository): GetSavedDrawsUseCase =
+        GetSavedDrawsUseCase(repository)
 }
