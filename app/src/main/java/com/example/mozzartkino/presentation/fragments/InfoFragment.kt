@@ -15,13 +15,13 @@ import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentInfoBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.NumbersAdapter
-import com.example.mozzartkino.presentation.util.FragmentUtils
+import com.example.mozzartkino.presentation.util.RvUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InfoFragment : Fragment(), FragmentUtils {
+class InfoFragment : Fragment(), RvUtils {
     private lateinit var binding: FragmentInfoBinding
     private val viewModel: KinoViewModel by viewModels()
 

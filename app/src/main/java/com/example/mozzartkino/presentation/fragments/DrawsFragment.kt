@@ -15,7 +15,7 @@ import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.databinding.FragmentDrawsBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
-import com.example.mozzartkino.presentation.util.FragmentUtils
+import com.example.mozzartkino.presentation.fragments.util.DrawsFragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class DrawsFragment : Fragment(), FragmentUtils {
+class DrawsFragment : Fragment(), DrawsFragmentUtils {
     private lateinit var binding: FragmentDrawsBinding
     private val viewModel: KinoViewModel by viewModels()
 
