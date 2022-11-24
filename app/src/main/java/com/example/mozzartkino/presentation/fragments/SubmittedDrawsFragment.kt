@@ -11,7 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentSubmitedDrawsBinding
+import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.util.FragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -19,7 +21,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubmittedDrawsFragment : Fragment() {
+class SubmittedDrawsFragment : Fragment(), FragmentUtils {
     private lateinit var binding: FragmentSubmitedDrawsBinding
     private val viewModel: KinoViewModel by viewModels()
 
@@ -38,24 +40,28 @@ class SubmittedDrawsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSubmitedDrawsBinding.bind(view)
         kinoAdapter.setOnItemClickListener {
-            val bundle = Bundle().apply {
-                putSerializable("selected_draw", it)
-                putString("from", "Submited_Draws")
-            }
-            findNavController().navigate(R.id.action_submitedDrawsFragment_to_infoFragment, bundle)
+            navigateToInfo(it)
         }
         initRecyclerView()
-        getSavedDrawsList()
+        getDrawsList()
     }
 
-    private fun initRecyclerView() {
+    override fun initRecyclerView() {
         binding.rvSavedDraws.run {
             adapter = kinoAdapter
             layoutManager = LinearLayoutManager(activity)
         }
     }
 
-    private fun getSavedDrawsList() {
+    override fun navigateToInfo(draw: Draw) {
+        val bundle = Bundle().apply {
+            putSerializable("selected_draw", draw)
+            putString("from", "Submited_Draws")
+        }
+        findNavController().navigate(R.id.action_submitedDrawsFragment_to_infoFragment, bundle)
+    }
+
+    override fun getDrawsList() {
         viewModel.getSavedDraws().onEach {
             kinoAdapter.differ.submitList(it)
         }.launchIn(lifecycleScope)

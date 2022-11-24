@@ -15,12 +15,13 @@ import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentInfoBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.NumbersAdapter
+import com.example.mozzartkino.presentation.util.FragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InfoFragment : Fragment() {
+class InfoFragment : Fragment(), FragmentUtils {
     private lateinit var binding: FragmentInfoBinding
     private val viewModel: KinoViewModel by viewModels()
 
@@ -75,6 +76,13 @@ class InfoFragment : Fragment() {
         buildNumbersList()
         buttonsListeners()
         checkSubmitedDraw()
+    }
+
+    override fun initRecyclerView() {
+        binding.rvNumbers.run {
+            adapter = numbersAdapter
+            layoutManager = GridLayoutManager(activity, 4)
+        }
     }
 
     private fun handleOnClick(number: String, textView: TextView) {
@@ -185,13 +193,6 @@ class InfoFragment : Fragment() {
         }
         if (from == From.Draws) {
             binding.ivWatch.visibility = View.VISIBLE
-        }
-    }
-
-    private fun initRecyclerView() {
-        binding.rvNumbers.run {
-            adapter = numbersAdapter
-            layoutManager = GridLayoutManager(activity, 4)
         }
     }
 

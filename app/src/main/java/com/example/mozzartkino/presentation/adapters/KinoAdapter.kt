@@ -3,17 +3,14 @@ package com.example.mozzartkino.presentation.adapters
 import android.app.Application
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mozzartkino.databinding.DrawItemBinding
 import com.example.mozzartkino.domain.model.Draw
-import com.example.mozzartkino.presentation.util.ViewHolderTimer
 import com.example.mozzartkino.presentation.util.ViewHolderTimerImpl
 import com.example.mozzartkino.util.date.DateTimeUtils
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.job
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,7 +51,8 @@ class KinoAdapter(private val app: Application) : RecyclerView.Adapter<KinoAdapt
     override fun onViewAttachedToWindow(holder: ViewHolder) {
         super.onViewAttachedToWindow(holder)
         val drawTime = Date(differ.currentList[holder.adapterPosition].drawTime)
-        jobs[holder.adapterPosition] = ViewHolderTimerImpl().getJob(app, drawTime, holder.leftTime, this@KinoAdapter)
+        jobs[holder.adapterPosition] =
+            ViewHolderTimerImpl().getJob(app, drawTime, holder.leftTime, this@KinoAdapter)
     }
 
     override fun onViewDetachedFromWindow(holder: ViewHolder) {
