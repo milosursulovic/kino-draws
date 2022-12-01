@@ -150,13 +150,8 @@ class InfoFragment : Fragment(), RvUtils {
     }
 
     private fun buttonsListeners() {
-        val action = when (from) {
-            From.Draws -> R.id.action_infoFragment_to_drawsFragment
-            From.SubmitedDraws -> R.id.action_infoFragment_to_submitedDrawsFragment
-            else -> R.id.action_infoFragment_to_resultsFragment
-        }
         binding.btnCancel.setOnClickListener {
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
         binding.btnSubmit.setOnClickListener {
             if (chosenNumbers.size == 0) {
@@ -179,7 +174,7 @@ class InfoFragment : Fragment(), RvUtils {
                     resources.getString(R.string.successfully_submited),
                     Toast.LENGTH_SHORT
                 ).show()
-                findNavController().navigate(action)
+                findNavController().popBackStack()
             }
         }
         binding.ivWatch.setOnClickListener {
