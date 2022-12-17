@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mozzart Kino</string>
+    <string name="app_name">Kino Draws</string>
     <string name="draw_time">Vreme izlacenja:</string>
     <string name="left_time">Preostalo za uplatu:</string>
     <string name="draw">Kolo: </string>
