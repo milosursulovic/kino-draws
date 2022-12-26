@@ -7,7 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class GetSavedDrawsUseCase(
     private val repository: KinoRepository
 ) {
-    operator fun invoke(): Flow<List<Draw>> {
-        return repository.getSavedDraws()
-    }
+    operator fun invoke(): Flow<List<Draw>> = repository.getSavedDraws()
 }

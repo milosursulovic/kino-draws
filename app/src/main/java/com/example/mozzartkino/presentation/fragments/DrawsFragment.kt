@@ -7,19 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
-import com.example.mozzartkino.data.util.Resource
 import com.example.mozzartkino.databinding.FragmentDrawsBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.draws.DrawEvent
 import com.example.mozzartkino.presentation.fragments.util.DrawsFragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -78,29 +75,21 @@ class DrawsFragment : Fragment(), DrawsFragmentUtils {
     }
 
     override fun getDrawsList() {
-        viewModel.getDraws().onEach { response ->
-            when (response) {
-                is Resource.Success -> {
-                    hideProgressBar()
-                    response.data?.let {
-                        kinoAdapter.differ.submitList(it)
-                    }
-                }
-                is Resource.Loading -> {
+        viewModel.setStateChangeListener { state ->
+            when (state.isLoading) {
+                true -> {
                     showProgressBar()
                 }
-                is Resource.Error -> {
+                false -> {
                     hideProgressBar()
-                    response.message?.let {
-                        Toast.makeText(
-                            activity,
-                            it,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                    if (state.error != null) {
+                        Toast.makeText(activity, state.error, Toast.LENGTH_SHORT).show()
+                    } else {
+                        kinoAdapter.differ.submitList(state.draws)
                     }
                 }
             }
-        }.launchIn(lifecycleScope)
+        }
+        viewModel.triggerEvent(DrawEvent.GetDraws)
     }
 }

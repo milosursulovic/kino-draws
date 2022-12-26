@@ -4,20 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mozzartkino.R
 import com.example.mozzartkino.databinding.FragmentSubmitedDrawsBinding
 import com.example.mozzartkino.domain.model.Draw
 import com.example.mozzartkino.presentation.adapters.KinoAdapter
+import com.example.mozzartkino.presentation.draws.DrawEvent
 import com.example.mozzartkino.presentation.fragments.util.SubmittedDrawsFragmentUtils
 import com.example.mozzartkino.presentation.view_models.KinoViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,8 +61,18 @@ class SubmittedDrawsFragment : Fragment(), SubmittedDrawsFragmentUtils {
     }
 
     override fun getDrawsList() {
-        viewModel.getSavedDraws().onEach {
-            kinoAdapter.differ.submitList(it)
-        }.launchIn(lifecycleScope)
+        viewModel.setStateChangeListener { state ->
+            when (state.isLoading) {
+                true -> {}
+                false -> {
+                    if (state.error != null) {
+                        Toast.makeText(activity, state.error, Toast.LENGTH_SHORT).show()
+                    } else {
+                        kinoAdapter.differ.submitList(state.draws)
+                    }
+                }
+            }
+        }
+        viewModel.triggerEvent(DrawEvent.GetSavedDraws)
     }
 }
