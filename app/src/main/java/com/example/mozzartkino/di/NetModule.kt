@@ -1,7 +1,7 @@
 package com.example.mozzartkino.di
 
-import com.example.mozzartkino.BuildConfig
 import com.example.mozzartkino.data.api.KinoApiService
+import com.example.mozzartkino.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ object NetModule {
     @Singleton
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(Constants.API_URL)
         .build()
 
     @Provides
